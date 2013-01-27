@@ -1,11 +1,18 @@
 package br.com.comente_sobre.domain;
 
-import br.com.comente_sobre.domain.model.Conversation;
+import br.com.comente_sobre.domain.model.Discussion;
+import br.com.comente_sobre.infrastructure.dao.DiscussionDAO;
 
 public class TalkAboutService {
 
-	public Conversation getConversation(String string) {
-		return new Conversation();
+	private DiscussionDAO discussionDAO;
+	
+	public TalkAboutService(DiscussionDAO discussionDAO) {
+		this.discussionDAO = discussionDAO;
+	}
+	
+	public Discussion getDiscussion(String subject) throws IllegalArgumentException{
+		return discussionDAO.getBySubject(subject);
 	}
 
 }
