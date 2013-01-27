@@ -11,6 +11,7 @@ bin
 
 #VRaptor build
 src/main/webapp/classes
+src/main/webapp/WEB-INF/classes/
 
 # Miscellaneous
 *.log
