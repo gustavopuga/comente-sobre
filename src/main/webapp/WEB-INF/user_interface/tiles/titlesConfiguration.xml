@@ -1,0 +1,37 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+<!-- 	<definition name="main" template="/views/templates/main.jsp"> -->
+<!-- 		<put-attribute name="titulo" value="Spring Fórum"/> -->
+<!-- 		<put-attribute name="cabecalho" value="/views/templates/cabecalho.jsp"/> -->
+<!-- 		<put-attribute name="rodape" value="/views/templates/rodape.jsp"/> -->
+<!-- 	</definition> -->
+
+<!--     <definition name="index"  extends="main" > -->
+<!--     	<put-attribute name="conteudo" value="/views/index.jsp"/> -->
+<!--     </definition> -->
+    
+<!--     <definition name="registro" extends="main"> -->
+    	<put-attribute name="conteudo" value="/views/signup.jsp"/>
+    	<put-attribute name="titulo" value="Bem vindo(a)!"/>
+    </definition>
+    
+    <definition name="usuario/show" extends="main">
+    	<put-attribute name="conteudo" value="/views/usuario/show.jsp"/>
+    	<put-attribute name="titulo" value="Detalhes do usuário"/>
+    </definition>
+    
+    <definition name="assunto/show" extends="main">
+    	<put-attribute name="conteudo" value="/views/assunto/show.jsp"/>
+    </definition>
+    
+    <definition name="usuario/posts" template="/views/usuario/postsUsuario.jsp"/>
+    
+    
+    <definition name="loginFalho" extends="main">
+    	<put-attribute name="conteudo" value="/views/loginFalho.jsp"/>
+    </definition>
+
+</tiles-definitions>

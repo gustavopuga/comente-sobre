@@ -2,10 +2,34 @@ package br.com.comente_sobre.domain.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-public class Discussion {
+@Entity
+public class Discussion implements Model {
 
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Column(unique = true)
+	private String subject;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Message> messages;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public List<Message> getMessages() {
 		return messages;
@@ -14,7 +38,15 @@ public class Discussion {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
-	
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
 	public boolean isEmpty() {
 		return messages == null ? true : messages.isEmpty();
 	}
