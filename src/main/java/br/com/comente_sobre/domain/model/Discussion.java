@@ -13,11 +13,11 @@ import javax.persistence.OneToMany;
 @Entity
 public class Discussion implements Model {
 
-	@Id
-	@GeneratedValue
+	@Id @GeneratedValue
+	@Column(name="id")
 	private Long id;
 
-	@Column(unique = true)
+	@Column(name="subject", unique = true, nullable=false)
 	private String subject;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

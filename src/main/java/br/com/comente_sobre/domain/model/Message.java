@@ -1,18 +1,29 @@
 package br.com.comente_sobre.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="message")
 public class Message implements Model {
 	
-	@Id
-	@GeneratedValue
+	@Id @GeneratedValue 
+	@Column(name="id")
 	private Long id;
+	
+	@Column(name="author", nullable=false)
 	private String author;
+	
+	@Column(name="text", nullable=false)
 	private String text;
 
+	@JoinColumn(table="discussion", name="subject", referencedColumnName="subject", nullable=false)
+	private String subject;
+	
 	public Long getId() {
 		return id;
 	}
