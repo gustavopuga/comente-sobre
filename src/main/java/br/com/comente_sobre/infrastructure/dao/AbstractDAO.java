@@ -22,18 +22,19 @@ public abstract class AbstractDAO<T extends Model> {
 		getSession().delete(object);
 	}
 
+	@SuppressWarnings("unchecked")
 	public T get(T object) {
 		return (T) getSession().get(getModelClass(), object.getId());
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 	
 	protected abstract Class<T> getModelClass();
 
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
 	}
 
 }
