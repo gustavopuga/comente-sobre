@@ -1,9 +1,13 @@
 package br.com.comente_sobre.infrastructure.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,17 +23,22 @@ public class DiscussionDAOTest extends AbstractJUnit4SpringContextTests{
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsEmpty() {
-		Assert.assertNull(dao.getBySubject(""));
+		dao.getBySubject("");
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void testThrowsExceptionWhenWhenCriteriaSubjectIsSpace() {
-		Assert.assertNull(dao.getBySubject(" "));
+	public void testThrowsExceptionWhenCriteriaSubjectIsSpace() {
+		dao.getBySubject(" ");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testThrowsExceptionWhenCriteriaSubjectIsSpaces() {
+		assertNull(dao.getBySubject("       "));
 	}
 	
 	@Test
 	public void testGetNullDiscussionWhenThereIsNoDiscussionOnTheSubject() {
-		Assert.assertNull(dao.getBySubject("subject"));
+		assertNull(dao.getBySubject("subject"));
 	}
 	
 	@Test
@@ -40,7 +49,27 @@ public class DiscussionDAOTest extends AbstractJUnit4SpringContextTests{
 		discussion.setMessages(new ArrayList<Message>());
 		
 		dao.saveOrUpdate(discussion);
-		Assert.assertNotNull(dao.getBySubject("subject"));
+		assertNotNull(dao.getBySubject("subject"));
+		dao.delete(discussion);
+	}
+	
+	@Test(expected=ConstraintViolationException.class)
+	public void testSaveDiscussionWhenSubjectIsNull() {
+		
+		Discussion discussion = new Discussion();
+		discussion.setMessages(new ArrayList<Message>());
+		
+		dao.saveOrUpdate(discussion);
+	}
+	
+	@Test
+	public void testSaveDiscussionWhenThereIsNotMessages() {
+		
+		Discussion discussion = new Discussion();
+		discussion.setSubject("subject");
+		
+		dao.saveOrUpdate(discussion);
+		assertNotNull(dao.getBySubject("subject"));
 		dao.delete(discussion);
 	}
 	
@@ -55,12 +84,16 @@ public class DiscussionDAOTest extends AbstractJUnit4SpringContextTests{
 		
 		dao.saveOrUpdate(discussion);
 		
-		messages.add(new Message());
+		Message message = new Message();
+		message.setText("text");
+		message.setAuthor("author");
+		
+		messages.add(message);
 		discussion.setMessages(messages);
 		
 		dao.saveOrUpdate(discussion);
 		
-		Assert.assertEquals(1, dao.getBySubject("subject").getMessages().size());
+		assertEquals(1, dao.getBySubject("subject").getMessages().size());
 		dao.delete(discussion);
 	}
 	
