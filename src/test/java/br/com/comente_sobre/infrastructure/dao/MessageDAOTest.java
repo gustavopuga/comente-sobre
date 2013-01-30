@@ -1,5 +1,9 @@
 package br.com.comente_sobre.infrastructure.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,7 @@ public class MessageDAOTest extends AbstractJUnit4SpringContextTests{
 		message.setAuthor("author");
 		
 		dao.saveOrUpdate(message);
-		Assert.assertNotNull(dao.get(message));
+		assertNotNull(dao.get(message));
 		dao.delete(message);
 	}
 	
@@ -36,22 +40,18 @@ public class MessageDAOTest extends AbstractJUnit4SpringContextTests{
 		message.setText("other text");
 		dao.saveOrUpdate(message);
 		
-		Assert.assertEquals("other text", dao.get(message).getText());
+		assertEquals("other text", dao.get(message).getText());
 		dao.delete(message);
 		
 	}
 	
-	@Test
+	@Test(expected=ConstraintViolationException.class)
 	public void testSaveAuthorMessageLikeUndefinedWhenAuthorIsNull() {
 		
 		Message message = new Message();
 		message.setText("text");
 		
 		dao.saveOrUpdate(message);
-		
-		Assert.assertEquals("Anônimo", dao.get(message).getAuthor());
-		dao.delete(message);
-		
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class MessageDAOTest extends AbstractJUnit4SpringContextTests{
 		message.setAuthor("other author");
 		dao.saveOrUpdate(message);
 		
-		Assert.assertEquals("other author", dao.get(message).getAuthor());
+		assertEquals("other author", dao.get(message).getAuthor());
 		dao.delete(message);
 		
 	}
