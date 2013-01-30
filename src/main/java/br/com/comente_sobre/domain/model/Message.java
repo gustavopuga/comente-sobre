@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="message")
+@Entity @Table(name="message")
 public class Message implements Model {
 	
 	@Id @GeneratedValue 
@@ -21,7 +21,9 @@ public class Message implements Model {
 	@Column(name="text", nullable=false)
 	private String text;
 
-	@JoinColumn(table="discussion", name="subject", referencedColumnName="subject", nullable=false)
+	@JoinColumn(table="discussion", name="subject", 
+			referencedColumnName="subject")
+	@Column(name="subject", nullable=false)
 	private String subject;
 	
 	public Long getId() {
@@ -46,6 +48,14 @@ public class Message implements Model {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 }

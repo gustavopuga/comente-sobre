@@ -17,84 +17,111 @@ import br.com.comente_sobre.domain.model.Discussion;
 import br.com.comente_sobre.domain.model.Message;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml" })
-public class DiscussionDAOTest extends AbstractJUnit4SpringContextTests{
+public class DiscussionDAOTest extends AbstractJUnit4SpringContextTests {
 
-	@Autowired private DiscussionDAO dao;
-	
-	@Test(expected=IllegalArgumentException.class)
+	@Autowired
+	private DiscussionDAO dao;
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsEmpty() {
 		dao.getBySubject("");
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsSpace() {
 		dao.getBySubject(" ");
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsSpaces() {
 		assertNull(dao.getBySubject("       "));
 	}
-	
+
 	@Test
 	public void testGetNullDiscussionWhenThereIsNoDiscussionOnTheSubject() {
 		assertNull(dao.getBySubject("subject"));
 	}
-	
+
 	@Test
 	public void testSaveDiscussion() {
-		
+
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
 		discussion.setMessages(new ArrayList<Message>());
-		
+
 		dao.saveOrUpdate(discussion);
 		assertNotNull(dao.getBySubject("subject"));
 		dao.delete(discussion);
 	}
-	
-	@Test(expected=ConstraintViolationException.class)
+
+	@Test(expected = ConstraintViolationException.class)
 	public void testSaveDiscussionWhenSubjectIsNull() {
-		
+
 		Discussion discussion = new Discussion();
 		discussion.setMessages(new ArrayList<Message>());
-		
+
 		dao.saveOrUpdate(discussion);
 	}
-	
+
 	@Test
 	public void testSaveDiscussionWhenThereIsNotMessages() {
-		
+
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
-		
+
 		dao.saveOrUpdate(discussion);
 		assertNotNull(dao.getBySubject("subject"));
 		dao.delete(discussion);
 	}
-	
+
 	@Test
 	public void testUpdateDiscussionMessages() {
-		
+
 		List<Message> messages = new ArrayList<Message>();
-		
+
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
 		discussion.setMessages(messages);
-		
+
 		dao.saveOrUpdate(discussion);
-		
+
 		Message message = new Message();
 		message.setText("text");
 		message.setAuthor("author");
+		message.setSubject("subject");
 		
 		messages.add(message);
 		discussion.setMessages(messages);
-		
+
 		dao.saveOrUpdate(discussion);
-		
+
 		assertEquals(1, dao.getBySubject("subject").getMessages().size());
 		dao.delete(discussion);
 	}
-	
+
+	@Test
+	public void testUpdateDiscussionMessagesWhenMessagesNotSetSubject() {
+
+		List<Message> messages = new ArrayList<Message>();
+
+		Discussion discussion = new Discussion();
+		discussion.setSubject("subject");
+		discussion.setMessages(messages);
+
+		dao.saveOrUpdate(discussion);
+
+		Message message = new Message();
+		message.setText("text");
+		message.setAuthor("author");
+		message.setSubject("subject");
+
+		messages.add(message);
+		discussion.setMessages(messages);
+
+		dao.saveOrUpdate(discussion);
+
+		assertEquals("subject", dao.getBySubject("subject").getMessages()
+				.get(0).getSubject());
+		dao.delete(discussion);
+	}
 }

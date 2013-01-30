@@ -1,16 +1,17 @@
 package br.com.comente_sobre.domain.model;
+import static javax.persistence.FetchType.EAGER;
 
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity
+@Entity @Table(name="discussion")
 public class Discussion implements Model {
 
 	@Id @GeneratedValue
@@ -20,7 +21,7 @@ public class Discussion implements Model {
 	@Column(name="subject", unique = true, nullable=false)
 	private String subject;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = EAGER)
 	private List<Message> messages;
 
 	public Long getId() {
