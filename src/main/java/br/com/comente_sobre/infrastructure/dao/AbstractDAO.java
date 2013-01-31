@@ -23,8 +23,8 @@ public abstract class AbstractDAO<T extends Model> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public T get(T object) {
-		return (T) getSession().get(getModelClass(), object.getId());
+	public T get(long id) {
+		return (T) getSession().get(getModelClass(), id);
 	}
 	
 	public void setSessionFactory(SessionFactory sessionFactory) {
