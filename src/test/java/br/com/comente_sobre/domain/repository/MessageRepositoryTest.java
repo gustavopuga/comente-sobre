@@ -5,14 +5,12 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import br.com.comente_sobre.domain.model.Message;
-import br.com.comente_sobre.domain.repository.MessageRepository;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml" })
 public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
@@ -51,7 +49,7 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		
 	}
 	
-	@Test(expected=ConstraintViolationException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testSaveAuthorMessageLikeUndefinedWhenAuthorIsNull() {
 		
 		Message message = new Message();
@@ -61,7 +59,7 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		repository.saveOrUpdate(message);
 	}
 	
-	@Test(expected=ConstraintViolationException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testSaveAuthorMessageLikeUndefinedWhenDateIsNull() {
 		
 		Message message = new Message();

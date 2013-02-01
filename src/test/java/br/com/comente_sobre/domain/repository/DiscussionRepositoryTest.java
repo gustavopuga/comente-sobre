@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,7 +15,6 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import br.com.comente_sobre.domain.model.Discussion;
 import br.com.comente_sobre.domain.model.Message;
-import br.com.comente_sobre.domain.repository.DiscussionRepository;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml" })
 public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
@@ -57,7 +55,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		repository.delete(discussion);
 	}
 
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSaveDiscussionWhenSubjectIsNull() {
 
 		Discussion discussion = new Discussion();
@@ -67,7 +65,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		repository.saveOrUpdate(discussion);
 	}
 
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSaveDiscussionWhenStartDateIsNull() {
 
 		Discussion discussion = new Discussion();
