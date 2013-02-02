@@ -1,4 +1,4 @@
-package br.com.comente_sobre.infrastructure.dao;
+package br.com.comente_sobre.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 

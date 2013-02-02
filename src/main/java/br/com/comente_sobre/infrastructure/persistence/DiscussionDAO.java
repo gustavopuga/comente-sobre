@@ -1,4 +1,4 @@
-package br.com.comente_sobre.infrastructure.dao;
+package br.com.comente_sobre.infrastructure.persistence;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import br.com.comente_sobre.domain.repository.DiscussionRepository;
 public class DiscussionDAO extends AbstractDAO<Discussion> implements DiscussionRepository{
 
 	public Discussion getBySubject(String subject) throws IllegalArgumentException {
-		if (subject.trim().isEmpty()){
+		if (subject == null || subject.trim().isEmpty()){
 			throw new IllegalArgumentException("Subject should not be empty");
 		}
 		return (Discussion) getSession().createCriteria(Discussion.class).add(Restrictions.ilike("subject", subject)).uniqueResult();
