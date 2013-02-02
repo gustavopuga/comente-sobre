@@ -1,0 +1,16 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<definition name="main" template="/user_interface/view/templates/main.jsp">
+		<put-attribute name="title" value="Comente Sobre"/>
+		<put-attribute name="header" value="/user_interface/view/templates/header.jsp"/>
+		<put-attribute name="footer" value="/user_interface/view/templates/footer.jsp"/>
+	</definition>
+
+	<definition name="index"  extends="main" >
+    	<put-attribute name="content" value="/user_interface/view/talk_about/index.jsp"/>
+    </definition>
+
+</tiles-definitions>
