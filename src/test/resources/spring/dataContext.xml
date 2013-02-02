@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="br.com.comente_sobre.infrastructure.dao"/>
+	<context:component-scan base-package="br.com.comente_sobre.infrastructure.persistence"/>
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
@@ -30,6 +30,8 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 			</props>
 		</property>
 		
@@ -48,7 +50,7 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* br.com.comente_sobre.infrastructure.dao.*DAO.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* br.com.comente_sobre.infrastructure.persistence.*DAO.*(..))"/>
 	</aop:config>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

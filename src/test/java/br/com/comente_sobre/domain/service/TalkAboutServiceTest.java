@@ -1,5 +1,6 @@
 package br.com.comente_sobre.domain.service;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.comente_sobre.domain.model.Discussion;
 import br.com.comente_sobre.domain.model.Message;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml",
@@ -53,17 +53,17 @@ public class TalkAboutServiceTest extends
 		service.updateDiscussion(message);	
 	}
 
-//	@Test
-//	public void testNotUpdateDiscussionWhenSubjectIsInvalid() {
-//		
-//		Message message = new Message();
-//		message.setText("");
-//		message.setAuthor("author");
-//		message.setSubject("subject");
-//		message.setDate(Calendar.getInstance());
-//		
-//		assertFalse(service.updateDiscussion(message));
-//	}
+	@Test
+	public void testNotUpdateDiscussionWhenSubjectIsInvalid() {
+		
+		Message message = new Message();
+		message.setText("");
+		message.setAuthor("author");
+		message.setSubject("subject");
+		message.setDate(Calendar.getInstance());
+		
+		assertFalse(service.updateDiscussion(message));
+	}
 	
 	@Test
 	@Transactional

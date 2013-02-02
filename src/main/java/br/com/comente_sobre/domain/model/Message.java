@@ -11,28 +11,29 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity @Table(name="message")
+@Entity
+@Table(name = "message")
 public class Message implements Model {
 
-	@Id @GeneratedValue 
-	@Column(name="id")
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="author", nullable=false)
+
+	@Column(name = "author", nullable = false)
 	private String author;
-	
-	@Column(name="text", nullable=false)
+
+	@Column(name = "text", nullable = false)
 	private String text;
 
-	@JoinColumn(table="discussion", name="subject", 
-			referencedColumnName="subject")
-	@Column(name="subject", nullable=false)
+	@JoinColumn(table = "discussion", name = "subject", referencedColumnName = "subject")
+	@Column(name = "subject", nullable = false)
 	private String subject;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date", nullable=false)
+	@Column(name = "date", nullable = false)
 	private Calendar date;
-	
+
 	public Long getId() {
 		return id;
 	}

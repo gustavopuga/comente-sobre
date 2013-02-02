@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.com.comente_sobre.domain.model.Discussion;
 import br.com.comente_sobre.domain.model.Message;
 import br.com.comente_sobre.domain.repository.DiscussionRepository;
-import br.com.comente_sobre.domain.repository.MessageRepository;
 
 @Service
 public class TalkAboutService {
@@ -18,8 +17,7 @@ public class TalkAboutService {
 	private DiscussionRepository discussionRepository;
 
 	@Autowired
-	public TalkAboutService(DiscussionRepository discussionRepository,
-			MessageRepository messageRepository) {
+	public TalkAboutService(DiscussionRepository discussionRepository) {
 		this.discussionRepository = discussionRepository;
 	}
 

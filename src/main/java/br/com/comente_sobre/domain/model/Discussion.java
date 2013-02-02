@@ -1,7 +1,5 @@
 package br.com.comente_sobre.domain.model;
 
-import static javax.persistence.FetchType.EAGER;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class Discussion implements Model {
 	private String subject;
 
 	@OrderBy("date DESC")
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "subject")
 	private List<Message> messages;
 
 	@Temporal(TemporalType.TIMESTAMP)
