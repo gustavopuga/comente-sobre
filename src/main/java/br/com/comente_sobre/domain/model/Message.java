@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 @Entity @Table(name="message")
 public class Message implements Model {
-	
+
 	@Id @GeneratedValue 
 	@Column(name="id")
 	private Long id;
@@ -28,7 +28,6 @@ public class Message implements Model {
 			referencedColumnName="subject")
 	@Column(name="subject", nullable=false)
 	private String subject;
-	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date", nullable=false)
@@ -74,4 +73,35 @@ public class Message implements Model {
 		this.date = date;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Message other = (Message) obj;
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (subject == null) {
+			if (other.subject != null)
+				return false;
+		} else if (!subject.equals(other.subject))
+			return false;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
+			return false;
+		return true;
+	}
 }

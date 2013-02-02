@@ -1,24 +1,58 @@
 package br.com.comente_sobre.domain.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import br.com.comente_sobre.domain.model.Discussion;
-import br.com.comente_sobre.infrastructure.dao.DiscussionDAO;
-;
+import br.com.comente_sobre.domain.model.Message;
+import br.com.comente_sobre.domain.repository.DiscussionRepository;
+import br.com.comente_sobre.domain.repository.MessageRepository;
 
-@Component
+@Service
 public class TalkAboutService {
 
-	private DiscussionDAO discussionDAO;
-	
+	private DiscussionRepository discussionRepository;
+
 	@Autowired
-	public TalkAboutService(DiscussionDAO discussionDAO) {
-		this.discussionDAO = discussionDAO;
+	public TalkAboutService(DiscussionRepository discussionRepository,
+			MessageRepository messageRepository) {
+		this.discussionRepository = discussionRepository;
 	}
-	
-	public Discussion getDiscussion(String subject) throws IllegalArgumentException{
-		return discussionDAO.getBySubject(subject);
+
+	public Discussion getDiscussionBySubject(String subject)
+			throws IllegalArgumentException {
+		return discussionRepository.getBySubject(subject);
+	}
+
+	public void createNewSubjectDiscussion(String subject) {
+
+		Discussion discussion = new Discussion();
+		discussion.setSubject(subject);
+		discussion.setStartDate(Calendar.getInstance());
+		discussion.setMessages(new ArrayList<Message>());
+
+		discussionRepository.saveOrUpdate(discussion);
+	}
+
+	public boolean updateDiscussion(Message message) {
+
+		try {
+
+			Discussion discussion = discussionRepository.getBySubject(message.getSubject());
+			if (discussion != null) {
+				discussion.getMessages().add(message);
+				discussionRepository.saveOrUpdate(discussion);
+				return true;
+			}
+			return false;
+
+		} catch (ConstraintViolationException exception) {
+			throw new IllegalArgumentException(exception);
+		}
 	}
 
 }

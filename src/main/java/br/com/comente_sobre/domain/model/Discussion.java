@@ -1,4 +1,5 @@
 package br.com.comente_sobre.domain.model;
+
 import static javax.persistence.FetchType.EAGER;
 
 import java.util.Calendar;
@@ -10,27 +11,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity @Table(name="discussion")
+@Entity
+@Table(name = "discussion")
 public class Discussion implements Model {
 
-	@Id @GeneratedValue
-	@Column(name="id")
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private Long id;
 
-	@Column(name="subject", unique = true, nullable=false)
+	@Column(name = "subject", unique = true, nullable = false)
 	private String subject;
 
+	@OrderBy("date DESC")
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = EAGER)
 	private List<Message> messages;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="start_date", nullable=false)
+	@Column(name = "start_date", nullable = false)
 	private Calendar startDate;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -38,7 +43,7 @@ public class Discussion implements Model {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public List<Message> getMessages() {
 		return messages;
 	}
