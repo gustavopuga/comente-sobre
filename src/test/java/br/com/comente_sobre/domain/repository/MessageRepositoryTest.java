@@ -24,7 +24,7 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		message.setText("text");
 		message.setAuthor("author");
 		message.setSubject("subject");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		repository.saveOrUpdate(message);
 		assertNotNull(repository.get(message.getId()));
@@ -38,7 +38,7 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		message.setText("text");
 		message.setAuthor("author");
 		message.setSubject("subject");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		repository.saveOrUpdate(message);
 		message.setText("other text");
@@ -54,7 +54,7 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		
 		Message message = new Message();
 		message.setText("text");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		repository.saveOrUpdate(message);
 	}
@@ -76,7 +76,7 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		message.setText("text");
 		message.setAuthor("author");
 		message.setSubject("subject");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		repository.saveOrUpdate(message);
 		message.setAuthor("other author");

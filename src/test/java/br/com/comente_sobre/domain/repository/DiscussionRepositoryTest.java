@@ -48,7 +48,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
 		discussion.setMessages(new ArrayList<Message>());
-		discussion.setStartDate(Calendar.getInstance());
+		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
 		assertNotNull(repository.getBySubject("subject"));
@@ -60,7 +60,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 
 		Discussion discussion = new Discussion();
 		discussion.setMessages(new ArrayList<Message>());
-		discussion.setStartDate(Calendar.getInstance());
+		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
 	}
@@ -80,7 +80,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
-		discussion.setStartDate(Calendar.getInstance());
+		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
 		assertNotNull(repository.getBySubject("subject"));
@@ -95,7 +95,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
 		discussion.setMessages(messages);
-		discussion.setStartDate(Calendar.getInstance());
+		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
 
@@ -103,7 +103,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		message.setText("text");
 		message.setAuthor("author");
 		message.setSubject("subject");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		messages.add(message);
 		discussion.setMessages(messages);
@@ -122,7 +122,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		Discussion discussion = new Discussion();
 		discussion.setSubject("subject");
 		discussion.setMessages(messages);
-		discussion.setStartDate(Calendar.getInstance());
+		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
 
@@ -130,7 +130,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		message.setText("text");
 		message.setAuthor("author");
 		message.setSubject("subject");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 
 		messages.add(message);
 		discussion.setMessages(messages);

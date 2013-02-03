@@ -1,11 +1,12 @@
 package br.com.comente_sobre.domain.model;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -26,13 +27,13 @@ public class Discussion implements Model {
 	@Column(name = "subject", unique = true, nullable = false)
 	private String subject;
 
-	@OrderBy("date DESC")
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "subject")
+	@OrderBy("date ASC")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Message> messages;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "start_date", nullable = false)
-	private Calendar startDate;
+	private Date startDate;
 
 	public Long getId() {
 		return id;
@@ -62,11 +63,11 @@ public class Discussion implements Model {
 		return messages == null ? true : messages.isEmpty();
 	}
 
-	public Calendar getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Calendar startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 

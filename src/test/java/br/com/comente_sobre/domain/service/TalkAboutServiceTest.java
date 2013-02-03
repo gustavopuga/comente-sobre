@@ -48,7 +48,7 @@ public class TalkAboutServiceTest extends
 		Message message = new Message();
 		message.setText("");
 		message.setAuthor("author");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		service.updateDiscussion(message);	
 	}
@@ -60,7 +60,7 @@ public class TalkAboutServiceTest extends
 		message.setText("");
 		message.setAuthor("author");
 		message.setSubject("subject");
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		assertFalse(service.updateDiscussion(message));
 	}
@@ -78,7 +78,7 @@ public class TalkAboutServiceTest extends
 		message.setText("");
 		message.setAuthor("author");
 		message.setSubject(subject);
-		message.setDate(Calendar.getInstance());
+		message.setDate(Calendar.getInstance().getTime());
 		
 		service.updateDiscussion(message);
 		

@@ -1,6 +1,6 @@
 package br.com.comente_sobre.domain.model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,13 +26,12 @@ public class Message implements Model {
 	@Column(name = "text", nullable = false)
 	private String text;
 
-	@JoinColumn(table = "discussion", name = "subject", referencedColumnName = "subject")
 	@Column(name = "subject", nullable = false)
 	private String subject;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date", nullable = false)
-	private Calendar date;
+	private Date date;
 
 	public Long getId() {
 		return id;
@@ -66,11 +65,11 @@ public class Message implements Model {
 		this.subject = subject;
 	}
 
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
