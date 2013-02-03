@@ -2,6 +2,7 @@ package br.com.comente_sobre.domain.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class TalkAboutService {
 
 		Discussion discussion = new Discussion();
 		discussion.setSubject(subject);
-		discussion.setStartDate(Calendar.getInstance());
+		discussion.setStartDate(Calendar.getInstance().getTime());
 		discussion.setMessages(new ArrayList<Message>());
 
 		discussionRepository.saveOrUpdate(discussion);

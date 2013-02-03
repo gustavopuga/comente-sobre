@@ -9,6 +9,8 @@
 
 
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/user_interface/resources/**" location="/user_interface/resources/" cache-period="120"/>
+	
 	<context:annotation-config />
 	<context:component-scan base-package="br.com.comente_sobre.application.controller"/>
 

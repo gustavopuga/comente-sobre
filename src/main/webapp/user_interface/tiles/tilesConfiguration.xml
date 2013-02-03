@@ -12,5 +12,9 @@
 	<definition name="index"  extends="main" >
     	<put-attribute name="content" value="/user_interface/view/talk_about/index.jsp"/>
     </definition>
+    
+    <definition name="discussion"  extends="main" >
+    	<put-attribute name="content" value="/user_interface/view/talk_about/discussion.jsp"/>
+    </definition>
 
 </tiles-definitions>
