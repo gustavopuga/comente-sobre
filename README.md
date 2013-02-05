@@ -20,7 +20,7 @@ Neste processo basta executar o comando `mvn package` que será gerado um pacote
 
 ### Processo com o web container integrado
 
-Este processo utiliza o plugin do tomcat ou do jetty para o maven. Nesta opção será feito o build da aplicação e automaticamente será iniciado um web container (neste caso o tomcat na versão 7 ou o jetty na versão 8). Para interromper o servidor basta pressionar *CRTL + C*.
+Este processo utiliza o plugin do tomcat ou do jetty para o maven. Nesta opção será feito o build da aplicação e automaticamente será iniciado um web container (neste caso o tomcat na versão 7 ou o jetty na versão 8). Para interromper o servidor basta pressionar `CRTL + C`.
 
 #### Tomcat 7
 
@@ -36,7 +36,7 @@ Caso você queira que o processo de build também gere um arquivo **comente-sobr
 
 Para rodar o processo de build via jetty 8 use o comando:
 
-    mvn jetyy:run
+    mvn jetty:run
 
 Caso você queira que o processo de build também gere um arquivo **comente-sobre.war** no diretório */target*, use o comando:
 
