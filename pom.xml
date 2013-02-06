@@ -183,7 +183,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -200,7 +200,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Nao e compativel com a ultima versao do spring -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -214,6 +213,8 @@
 							<port>${java.servlet_container.port}</port>
 						</connector>
 					</connectors>
+					<war>${project.build.directory}/${project.artifactId}.war</war>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
 				</configuration>
 			</plugin>
 
@@ -230,6 +231,12 @@
 				<configuration>
 					<warName>${project.artifactId}</warName>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.13</version>
 			</plugin>
 
 		</plugins>

@@ -28,9 +28,9 @@ Para rodar o processo de build via tomcat 7 use o comando:
 
     mvn tomcat7:run
 
-Caso você queira que o processo de build também gere um arquivo **comente-sobre.war** no diretório */target*, use o comando:
+Caso você queira que o processo de build rode os testes do projeto e também gere um arquivo **comente-sobre.war** no diretório */target*, use o comando:
 
-    mvn tomcat7:run-war
+    mvn tomcat7:run-war (Há um problema na configuração deste comando favor não usá-lo)
 
 #### Jetty 8
 
@@ -38,7 +38,7 @@ Para rodar o processo de build via jetty 8 use o comando:
 
     mvn jetty:run
 
-Caso você queira que o processo de build também gere um arquivo **comente-sobre.war** no diretório */target*, use o comando:
+Caso você queira que o processo de build rode os testes também gere um arquivo **comente-sobre.war** no diretório */target*, use o comando:
 
     mvn jetty:run-war
 
