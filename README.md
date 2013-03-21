@@ -30,7 +30,7 @@ Caso você queira que o processo de build rode os testes também gere um arquivo
 
     mvn jetty:run-war
 
-Na segunda opção, antes do processo de build serão executados os testes do projeto. Se você desejar rodar apenas os testes do projeto utilize o comando:
+Na segunda opção, após o processo de build serão executados os testes do projeto. Se você desejar rodar apenas os testes do projeto utilize o comando:
 
     mvn test
 
