@@ -1,21 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<script type="text/javascript"
-	src="<c:url value="/user_interface/resources/js/talk_about/discussion.js"/>"></script>
+<link rel="stylesheet" href="<c:url value="/user_interface/resources/css/discussion.css"/>">
+<script type="text/javascript" src="<c:url value="/user_interface/resources/js/talk_about/discussion.js"/>"></script>
 
-<table>
+<div class='content'>
 	
 	<div>
 		<h2>Assunto: ${discussion.subject}</h2>
 	</div>
 	
-	<div class='post-area'>
+	<div class='discussion-post-area'>
 		<c:forEach items="${discussion.messages}" var="message">
 		<div>
-			<p class='text-message'>
+			<p class='discussion-text-message'>
 				${message.text} <br>
-				<p class='text-identify'>${message.author} - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
+				<p class='discussion-about-text-message'>${message.author} - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
 			</p>
 		</div>
 		</c:forEach>
@@ -25,21 +25,21 @@
 		<input type="hidden" id="subject" name="subject" value=${discussion.subject}>
 		<input type="hidden" id="text" name="text" value="">
 		
-		<div class='post-message'>
+		<div class='discussion-post-message'>
 			<h4>Deixe seu coment&aacute;rio aqui...</h4>
 			<img src="<c:url value="/user_interface/resources/images/avatar_user_64.png"/>">
 			
-			<textarea id='textarea-post-message'></textarea>
+			<textarea id='textareaPostMessage'></textarea>
 			
-			<div class="post-message-input-area">
+			<div class="discussion-post-message-input-area">
 				Autor: <input type='text' id='author' name='author'/>
 			</div>
 			
-			<div class="post-message-input-area">
-				<input id="post-message-button" type="submit" class="inputButton" value="Comentar"/>
+			<div class="discussion-post-message-input-area">
+				<input id="postMessageButton" type="submit" class="input-button" value="Comentar"/>
 			</div>
 		</div>
 		
 	</form>
 	
-</table>
+</div>

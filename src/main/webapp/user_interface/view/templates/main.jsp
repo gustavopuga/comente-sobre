@@ -9,9 +9,11 @@
 	
 		<meta http-equiv="Content-Type" content="text/html" charset=UTF-8">
 		
-		<link rel="stylesheet" href="<c:url value="/user_interface/resources/css/normalize.css"/>">
+		<link rel="stylesheet" href="<c:url value="/user_interface/resources/css/reset_browser_properties/normalize.css"/>">
 		<link rel="stylesheet" href="<c:url value="/user_interface/resources/css/talk_about.css"/>">
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
+		
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arizonia" type="text/css">
 		
 		<script src="<c:url value="/user_interface/resources/js/lib/prefixfree.min.js"/>"></script>
 		<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
@@ -23,11 +25,15 @@
 	
 	<body>
 	
-		<tiles:insertAttribute name="header"/>
+		<div class="container">
 		
-		<tiles:insertAttribute name="content"/>
-	
-		<tiles:insertAttribute name="footer"/>
+			<tiles:insertAttribute name="header"/>
+			
+			<tiles:insertAttribute name="content"/>
+		
+			<tiles:insertAttribute name="footer"/>
+			
+		</div>
 		
 	</body>
 	
