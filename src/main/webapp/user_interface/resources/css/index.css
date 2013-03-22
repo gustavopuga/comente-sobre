@@ -1,0 +1,9 @@
+@CHARSET "US-ASCII";
+
+.index-input-div {
+	margin-top: 0px;
+	font-size: 1em;
+	padding: 20px;
+	position: relative;
+	text-align: center;
+}

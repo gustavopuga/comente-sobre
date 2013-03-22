@@ -1,6 +1,6 @@
 function submitForm () {
 	
-	var textMessage = $("#textarea-post-message").val();
+	var textMessage = $("#textareaPostMessage").val();
 	
 	if (textMessage == null || textMessage.replace(/\s/g,"") == ""){
 		alert("Para comentar é necessário escrever um comentário primeiro.");

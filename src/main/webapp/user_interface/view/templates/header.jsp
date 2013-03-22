@@ -2,7 +2,5 @@
 	pageEncoding="US-ASCII"%>
 
 <header>
-	<div>
-		<h1>Comente Sobre</h1>
-	</div>
+	<h1>Comente Sobre</h1>
 </header>
