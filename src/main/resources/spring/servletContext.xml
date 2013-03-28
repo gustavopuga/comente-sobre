@@ -25,5 +25,30 @@
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
 	</bean>
+
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">  
+	  <property name="mediaTypes">  
+	    <map>  
+	      <entry key="html" value="text/html"/>  
+	      <entry key="json" value="application/json"/>  
+	    </map>  
+	  </property>  
+	  <property name="viewResolvers">  
+	    <list>  
+			<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+			    <property name="viewClass">
+			        <value>org.springframework.web.servlet.view.tiles2.TilesView</value>
+			    </property>   
+			</bean>  
+	    </list>  
+	  </property>  
+	  <property name="defaultViews">  
+	    <list>  
+	      <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">  
+	        <property name="prefixJson" value="true"/>  
+	      </bean>  
+	    </list>  
+	  </property>  
+	</bean> 
 	
 </beans>

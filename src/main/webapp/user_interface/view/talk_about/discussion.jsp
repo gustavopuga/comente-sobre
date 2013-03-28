@@ -10,9 +10,9 @@
 		<h2>Assunto: ${discussion.subject}</h2>
 	</div>
 	
-	<div class='discussion-post-area'>
+	<div id='discussionPostArea' class='discussion-post-area'>
 		<c:forEach items="${discussion.messages}" var="message">
-		<div>
+		<div id='${message.id}'>
 			<p class='discussion-text-message'>
 				${message.text} <br>
 				<p class='discussion-about-text-message'>${message.author} - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
@@ -22,7 +22,7 @@
 	</div>
 		
 	<form id="form" action="update" onsubmit="submitForm()" method="POST">
-		<input type="hidden" id="subject" name="subject" value=${discussion.subject}>
+		<input type="hidden" id="subject" name="subject" value="${discussion.subject}">
 		<input type="hidden" id="text" name="text" value="">
 		
 		<div class='discussion-post-message'>
@@ -37,6 +37,10 @@
 			
 			<div class="discussion-post-message-input-area">
 				<input id="postMessageButton" type="submit" class="input-button" value="Comentar"/>
+			</div>
+			
+			<div class="discussion-post-message-input-area">
+				<input id="postMessageButton" type="button" class="input-button" onclick="getNewDiscussionMessages()" value="Teste"/>
 			</div>
 		</div>
 		

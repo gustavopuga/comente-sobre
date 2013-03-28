@@ -17,7 +17,7 @@
 		
 		<script src="<c:url value="/user_interface/resources/js/lib/prefixfree.min.js"/>"></script>
 		<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-		<script src="<c:url value="http://code.jquery.com/ui/1.10.0/jquery-ui.js"/>"></script>
+		<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 
 		<title><tiles:getAsString name="title" /></title>
 

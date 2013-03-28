@@ -1,12 +1,17 @@
 package br.com.comente_sobre.application.controller;
 
+import java.io.IOException;
 import java.util.Calendar;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.comente_sobre.domain.model.Discussion;
@@ -28,7 +33,7 @@ public class TalkAboutController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/{subject}", method=RequestMethod.POST)
+	@RequestMapping(value="/{subject}")
 	public ModelAndView searchDiscussion(@PathVariable("subject")String subject) {
 
 		ModelAndView response = new ModelAndView();
@@ -51,6 +56,26 @@ public class TalkAboutController {
 		return response;
 	}
 
+	@RequestMapping(value="/list/{subject}")
+	public @ResponseBody String listDiscussion(@PathVariable("subject")String subject) throws JsonGenerationException, JsonMappingException, IOException {
+
+		if (subject != null && !subject.trim().isEmpty()) {
+			
+			Discussion discussion;
+			try {	
+				discussion = talkAboutService.getDiscussionBySubject(subject);
+			} catch (IllegalArgumentException e) {
+				talkAboutService.createNewSubjectDiscussion(subject);	
+				discussion = talkAboutService.getDiscussionBySubject(subject);
+			}
+			
+			ObjectMapper mapper = new ObjectMapper(); //ObjectMapper é uma classe da biblioteca Jackson
+	        return mapper.writeValueAsString(discussion.getMessages());
+		}
+		
+		return "";
+	}
+	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ModelAndView update(String author, String subject, String text) {
 		
