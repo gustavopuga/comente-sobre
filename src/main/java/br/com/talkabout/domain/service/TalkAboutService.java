@@ -2,7 +2,6 @@ package br.com.talkabout.domain.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;

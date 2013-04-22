@@ -10,12 +10,7 @@
 		</layout>
 	</appender>
 
-	<category name="br.com.caelum.vraptor">
-		<priority value="INFO" />
-		<appender-ref ref="main" />
-	</category>
-	
-	<category name="br.com.comente_sobre">
+	<category name="br.com.talkabout">
 		<priority value="INFO" />
 		<appender-ref ref="main" />
 	</category>

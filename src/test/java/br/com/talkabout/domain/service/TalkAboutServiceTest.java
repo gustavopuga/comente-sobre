@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.talkabout.domain.model.Message;
-import br.com.talkabout.domain.service.TalkAboutService;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml",
 		"classpath:spring/serviceContext.xml" })

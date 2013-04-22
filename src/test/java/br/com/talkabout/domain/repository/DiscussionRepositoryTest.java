@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import br.com.talkabout.domain.model.Discussion;
 import br.com.talkabout.domain.model.Message;
-import br.com.talkabout.domain.repository.DiscussionRepository;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml" })
 public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {

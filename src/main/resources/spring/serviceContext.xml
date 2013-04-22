@@ -8,6 +8,6 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="br.com.comente_sobre.domain.service"/>
+	<context:component-scan base-package="br.com.talkabout.domain.service"/>
 
 </beans>
