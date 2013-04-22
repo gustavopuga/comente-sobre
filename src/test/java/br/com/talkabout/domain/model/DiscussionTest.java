@@ -1,10 +1,13 @@
-package br.com.comente_sobre.domain.model;
+package br.com.talkabout.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import br.com.talkabout.domain.model.Discussion;
+import br.com.talkabout.domain.model.Message;
 
 public class DiscussionTest {
 

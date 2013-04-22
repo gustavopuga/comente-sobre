@@ -1,6 +1,6 @@
-package br.com.comente_sobre.domain.repository;
+package br.com.talkabout.domain.repository;
 
-import br.com.comente_sobre.domain.model.Discussion;
+import br.com.talkabout.domain.model.Discussion;
 
 public interface DiscussionRepository {
 

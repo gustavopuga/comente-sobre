@@ -1,4 +1,4 @@
-package br.com.comente_sobre.domain.repository;
+package br.com.talkabout.domain.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import br.com.comente_sobre.domain.model.Message;
+import br.com.talkabout.domain.model.Message;
+import br.com.talkabout.domain.repository.MessageRepository;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml" })
 public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{

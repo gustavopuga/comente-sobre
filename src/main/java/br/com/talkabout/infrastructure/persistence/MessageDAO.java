@@ -1,9 +1,9 @@
-package br.com.comente_sobre.infrastructure.persistence;
+package br.com.talkabout.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.comente_sobre.domain.model.Message;
-import br.com.comente_sobre.domain.repository.MessageRepository;
+import br.com.talkabout.domain.model.Message;
+import br.com.talkabout.domain.repository.MessageRepository;
 
 @Repository
 public class MessageDAO extends AbstractDAO<Message> implements MessageRepository{

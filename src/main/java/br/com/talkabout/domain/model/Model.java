@@ -1,4 +1,4 @@
-package br.com.comente_sobre.domain.model;
+package br.com.talkabout.domain.model;
 
 
 public interface Model {

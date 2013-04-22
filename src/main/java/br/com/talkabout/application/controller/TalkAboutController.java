@@ -1,4 +1,4 @@
-package br.com.comente_sobre.application.controller;
+package br.com.talkabout.application.controller;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.comente_sobre.domain.model.Discussion;
-import br.com.comente_sobre.domain.model.Message;
-import br.com.comente_sobre.domain.service.TalkAboutService;
+import br.com.talkabout.domain.model.Discussion;
+import br.com.talkabout.domain.model.Message;
+import br.com.talkabout.domain.service.TalkAboutService;
 
 @Controller
 public class TalkAboutController {

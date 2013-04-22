@@ -1,4 +1,4 @@
-package br.com.comente_sobre.domain.service;
+package br.com.talkabout.domain.service;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -14,7 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.comente_sobre.domain.model.Message;
+import br.com.talkabout.domain.model.Message;
+import br.com.talkabout.domain.service.TalkAboutService;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml",
 		"classpath:spring/serviceContext.xml" })

@@ -1,10 +1,10 @@
-package br.com.comente_sobre.infrastructure.persistence;
+package br.com.talkabout.infrastructure.persistence;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import br.com.comente_sobre.domain.model.Discussion;
-import br.com.comente_sobre.domain.repository.DiscussionRepository;
+import br.com.talkabout.domain.model.Discussion;
+import br.com.talkabout.domain.repository.DiscussionRepository;
 
 @Repository
 public class DiscussionDAO extends AbstractDAO<Discussion> implements DiscussionRepository{

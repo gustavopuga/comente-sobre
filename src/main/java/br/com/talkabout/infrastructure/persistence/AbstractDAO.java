@@ -1,4 +1,4 @@
-package br.com.comente_sobre.infrastructure.persistence;
+package br.com.talkabout.infrastructure.persistence;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,7 +6,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.comente_sobre.domain.model.Model;
+import br.com.talkabout.domain.model.Model;
 
 public abstract class AbstractDAO<T extends Model> {
 

@@ -1,4 +1,4 @@
-package br.com.comente_sobre.domain.service;
+package br.com.talkabout.domain.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,9 +8,9 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.comente_sobre.domain.model.Discussion;
-import br.com.comente_sobre.domain.model.Message;
-import br.com.comente_sobre.domain.repository.DiscussionRepository;
+import br.com.talkabout.domain.model.Discussion;
+import br.com.talkabout.domain.model.Message;
+import br.com.talkabout.domain.repository.DiscussionRepository;
 
 @Service
 public class TalkAboutService {
