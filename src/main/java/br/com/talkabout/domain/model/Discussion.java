@@ -6,11 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,28 +17,15 @@ import javax.persistence.TemporalType;
 public class Discussion implements Model {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id")
-	private Long id;
-
-	@Column(name = "subject", unique = true, nullable = false)
+	@Column(name = "subject")
 	private String subject;
 
-	@OrderBy("date ASC")
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="subject")
 	private List<Message> messages;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "start_date", nullable = false)
 	private Date startDate;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public List<Message> getMessages() {
 		return messages;

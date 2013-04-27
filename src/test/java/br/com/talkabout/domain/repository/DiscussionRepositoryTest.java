@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.id.IdentifierGenerationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
@@ -24,22 +26,22 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsEmpty() {
-		repository.getBySubject("");
+		repository.get("");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsSpace() {
-		repository.getBySubject(" ");
+		repository.get(" ");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenCriteriaSubjectIsSpaces() {
-		assertNull(repository.getBySubject("       "));
+		assertNull(repository.get("       "));
 	}
 
 	@Test
 	public void testGetNullDiscussionWhenThereIsNoDiscussionOnTheSubject() {
-		assertNull(repository.getBySubject("subject"));
+		assertNull(repository.get("subject"));
 	}
 
 	@Test
@@ -51,11 +53,11 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
-		assertNotNull(repository.getBySubject("subject"));
+		assertNotNull(repository.get("subject"));
 		repository.delete(discussion);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IdentifierGenerationException.class)
 	public void testSaveDiscussionWhenSubjectIsNull() {
 
 		Discussion discussion = new Discussion();
@@ -65,7 +67,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		repository.saveOrUpdate(discussion);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = DataIntegrityViolationException.class)
 	public void testSaveDiscussionWhenStartDateIsNull() {
 
 		Discussion discussion = new Discussion();
@@ -83,7 +85,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		discussion.setStartDate(Calendar.getInstance().getTime());
 
 		repository.saveOrUpdate(discussion);
-		assertNotNull(repository.getBySubject("subject"));
+		assertNotNull(repository.get("subject"));
 		repository.delete(discussion);
 	}
 
@@ -110,7 +112,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 
 		repository.saveOrUpdate(discussion);
 
-		assertEquals(1, repository.getBySubject("subject").getMessages().size());
+		assertEquals(1, repository.get("subject").getMessages().size());
 		repository.delete(discussion);
 	}
 
@@ -137,7 +139,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 
 		repository.saveOrUpdate(discussion);
 
-		assertEquals("subject", repository.getBySubject("subject").getMessages()
+		assertEquals("subject", repository.get("subject").getMessages()
 				.get(0).getSubject());
 		repository.delete(discussion);
 	}

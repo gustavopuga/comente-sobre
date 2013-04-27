@@ -1,6 +1,5 @@
 package br.com.talkabout.domain.service;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -53,7 +52,7 @@ public class TalkAboutServiceTest extends
 		service.updateDiscussion(message);	
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testNotUpdateDiscussionWhenSubjectIsInvalid() {
 		
 		Message message = new Message();
@@ -62,7 +61,7 @@ public class TalkAboutServiceTest extends
 		message.setSubject("subject");
 		message.setDate(Calendar.getInstance().getTime());
 		
-		assertFalse(service.updateDiscussion(message));
+		service.updateDiscussion(message);
 	}
 	
 	@Test

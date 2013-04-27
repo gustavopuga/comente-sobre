@@ -3,19 +3,37 @@ package br.com.talkabout.domain.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
+import br.com.talkabout.domain.model.Discussion;
 import br.com.talkabout.domain.model.Message;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml" })
 public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 
 	@Autowired protected MessageRepository repository;
+	@Autowired private DiscussionRepository discussionRepository;
+	
+	private Discussion discussion;
+	
+	@Before
+	public void createDiscussionToMessages() {
+		
+		discussion = new Discussion();
+		discussion.setSubject("subject");
+		discussion.setMessages(new ArrayList<Message>());
+		discussion.setStartDate(Calendar.getInstance().getTime());
+		
+		discussionRepository.saveOrUpdate(discussion);
+	}
 	
 	@Test
 	public void testSaveMessage() {
@@ -85,5 +103,10 @@ public class MessageRepositoryTest extends AbstractJUnit4SpringContextTests{
 		assertEquals("other author", repository.get(message.getId()).getAuthor());
 		repository.delete(message);
 		
+	}
+	
+	@After
+	public void removeDiscussionToMessages() {
+		discussionRepository.saveOrUpdate(discussion);
 	}
 }

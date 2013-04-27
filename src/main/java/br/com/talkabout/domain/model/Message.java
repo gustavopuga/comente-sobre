@@ -27,7 +27,7 @@ public class Message implements Model {
 
 	@Column(name = "subject", nullable = false)
 	private String subject;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date", nullable = false)
 	private Date date;

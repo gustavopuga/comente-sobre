@@ -27,15 +27,6 @@ public abstract class AbstractDAO<T extends Model> {
 		getSession().delete(object);
 	}
 
-	@SuppressWarnings("unchecked")
-	public T get(long id) {
-		try {
-			return (T) getSession().get(getModelClass(), id);
-		} catch (ConstraintViolationException exception) {
-			throw new IllegalArgumentException(exception);
-		}
-	}
-
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

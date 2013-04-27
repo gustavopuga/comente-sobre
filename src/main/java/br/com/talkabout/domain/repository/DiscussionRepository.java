@@ -8,5 +8,5 @@ public interface DiscussionRepository {
 	
 	public void delete(Discussion discussion);
 
-	public Discussion getBySubject(String subject);
+	public Discussion get(String subject);
 }

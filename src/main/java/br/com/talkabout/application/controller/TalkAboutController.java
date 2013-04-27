@@ -39,15 +39,19 @@ public class TalkAboutController {
 		ModelAndView response = new ModelAndView();
 		if (subject != null && !subject.trim().isEmpty()) {
 			
+			Discussion discussion;
 			try {	
-				Discussion discussion = talkAboutService.getDiscussionBySubject(subject);
-				response.addObject(discussion);
+				
+				discussion = talkAboutService.getDiscussionBySubject(subject);
+				if (discussion == null) {
+					discussion = talkAboutService.createNewSubjectDiscussion(subject);
+				}
+				
 			} catch (IllegalArgumentException e) {
-				talkAboutService.createNewSubjectDiscussion(subject);	
-				Discussion discussion = talkAboutService.getDiscussionBySubject(subject);
-				response.addObject(discussion);
+				discussion = talkAboutService.createNewSubjectDiscussion(subject);	
 			}
 			
+			response.addObject(discussion);
 			response.setViewName("discussion");
 		} else {
 			response.setViewName("index");
@@ -65,8 +69,7 @@ public class TalkAboutController {
 			try {	
 				discussion = talkAboutService.getDiscussionBySubject(subject);
 			} catch (IllegalArgumentException e) {
-				talkAboutService.createNewSubjectDiscussion(subject);	
-				discussion = talkAboutService.getDiscussionBySubject(subject);
+				discussion = talkAboutService.createNewSubjectDiscussion(subject);	
 			}
 			
 			ObjectMapper mapper = new ObjectMapper(); //ObjectMapper é uma classe da biblioteca Jackson
