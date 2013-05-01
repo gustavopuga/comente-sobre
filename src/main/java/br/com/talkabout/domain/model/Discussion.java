@@ -55,4 +55,12 @@ public class Discussion implements Model {
 		this.startDate = startDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Discussion [subject=" + subject + ", messages=" + messages
+				+ ", startDate=" + startDate + "]";
+	}
+
+	
+	
 }

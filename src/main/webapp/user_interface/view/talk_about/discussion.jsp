@@ -6,8 +6,11 @@
 
 <div class='content'>
 	
+	<input type="hidden" id="date" name="date" value="${date}">
+	<input type="hidden" id="url" name="url" value="${discussion.subject}">
+	
 	<div>
-		<h2>Assunto: ${discussion.subject}</h2>
+		<h2>cd Assunto: ${discussion.subject}</h2>
 	</div>
 	
 	<div id='discussionPostArea' class='discussion-post-area'>
@@ -15,15 +18,14 @@
 		<div id='${message.id}'>
 			<p class='discussion-text-message'>
 				${message.text} <br>
-				<p class='discussion-about-text-message'>${message.author} - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
 			</p>
+			<p class='discussion-about-text-message'>${message.author} - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
 		</div>
 		</c:forEach>
 	</div>
 		
-	<form id="form" action="update" onsubmit="submitForm()" method="POST">
+	<form id="form" method="PUT">
 		<input type="hidden" id="subject" name="subject" value="${discussion.subject}">
-		<input type="hidden" id="text" name="text" value="">
 		
 		<div class='discussion-post-message'>
 			<h4>Deixe seu coment&aacute;rio aqui...</h4>
@@ -36,12 +38,9 @@
 			</div>
 			
 			<div class="discussion-post-message-input-area">
-				<input id="postMessageButton" type="submit" class="input-button" value="Comentar"/>
+				<input id="postMessageButton" type="button" class="input-button" onclick="submitForm()" value="Comentar"/>
 			</div>
 			
-			<div class="discussion-post-message-input-area">
-				<input id="postMessageButton" type="button" class="input-button" onclick="getNewDiscussionMessages()" value="Teste"/>
-			</div>
 		</div>
 		
 	</form>

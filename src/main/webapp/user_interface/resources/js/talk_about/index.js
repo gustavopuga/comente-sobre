@@ -59,7 +59,7 @@ $(function() {
         source: function( request, response ) {
             $.ajax({
                 url: globalUrl,
-                dataType: "jsonp",
+                dataType: "JSONP",
                 data: {
 					q: $("#subject").val(),
 					client: 'psy',

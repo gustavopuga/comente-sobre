@@ -1,8 +1,10 @@
 package br.com.talkabout.infrastructure.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
@@ -12,7 +14,7 @@ import br.com.talkabout.domain.model.Message;
 import br.com.talkabout.domain.repository.MessageRepository;
 
 @Repository
-public class MessageDAO extends AbstractDAO<Message> implements MessageRepository{
+public class MessageDAO extends AbstractDAO<Message> implements MessageRepository {
 	
 	public Message get(long id) {
 		try {
@@ -27,6 +29,21 @@ public class MessageDAO extends AbstractDAO<Message> implements MessageRepositor
 		
 		Criteria criteria = getSession().createCriteria(getModelClass());
 		criteria.add(Restrictions.ilike("subject", subject));
+		criteria.addOrder(Order.asc("date"));
+		
+		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Message> getBySubjectAndDate(String subject, Date date) {
+		
+//		Query query = getSession().createQuery("FROM Message as m WHERE m.subject = :subject AND m.date > :date");
+//		query.setProperties(subject);
+//		query.setProperties(date);
+//		return query.list();
+		Criteria criteria = getSession().createCriteria(getModelClass());
+		criteria.add(Restrictions.ilike("subject", subject));
+		criteria.add(Restrictions.gt("date", date));
 		criteria.addOrder(Order.asc("date"));
 		
 		return criteria.list();

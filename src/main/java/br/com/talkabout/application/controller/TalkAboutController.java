@@ -1,7 +1,11 @@
 package br.com.talkabout.application.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -33,26 +37,41 @@ public class TalkAboutController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/{subject}")
+	@RequestMapping(value="/{subject}", method=RequestMethod.POST)
 	public ModelAndView searchDiscussion(@PathVariable("subject")String subject) {
 
 		ModelAndView response = new ModelAndView();
 		if (subject != null && !subject.trim().isEmpty()) {
 			
 			Discussion discussion;
+			Date lastMessageDate;
+			
 			try {	
 				
 				discussion = talkAboutService.getDiscussionBySubject(subject);
+				
 				if (discussion == null) {
 					discussion = talkAboutService.createNewSubjectDiscussion(subject);
 				}
 				
+				List<Message> messages = discussion.getMessages();
+				int messageNumber = messages.size();
+				
+				if (messageNumber == 0){
+					lastMessageDate = discussion.getStartDate();
+				} else {
+					lastMessageDate = messages.get(messages.size() - 1).getDate();
+				}
+				
 			} catch (IllegalArgumentException e) {
-				discussion = talkAboutService.createNewSubjectDiscussion(subject);	
+				discussion = talkAboutService.createNewSubjectDiscussion(subject);
+				lastMessageDate = discussion.getStartDate();
 			}
 			
 			response.addObject(discussion);
+			response.addObject("date", lastMessageDate.getTime());
 			response.setViewName("discussion");
+			
 		} else {
 			response.setViewName("index");
 		}
@@ -60,36 +79,42 @@ public class TalkAboutController {
 		return response;
 	}
 
-	@RequestMapping(value="/list/{subject}")
-	public @ResponseBody String listDiscussion(@PathVariable("subject")String subject) throws JsonGenerationException, JsonMappingException, IOException {
+	@RequestMapping(value="/{subject}/{date}", method=RequestMethod.GET)
+	public @ResponseBody String listNewDiscussion(@PathVariable("subject")String subject, @PathVariable("date")String stringDate) throws JsonGenerationException, JsonMappingException, IOException {
 
-		if (subject != null && !subject.trim().isEmpty()) {
+		List<Message> messages;
+		messages = new ArrayList<Message>();
+		
+//		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + subject);
+//		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + stringDate);
+		
+		if(stringDate != null && !stringDate.trim().isEmpty()){
 			
-			Discussion discussion;
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(Long.valueOf(stringDate));
 			try {	
-				discussion = talkAboutService.getDiscussionBySubject(subject);
-			} catch (IllegalArgumentException e) {
-				discussion = talkAboutService.createNewSubjectDiscussion(subject);	
-			}
+				messages = talkAboutService.getMessagesBySubjectAndDate(subject, calendar.getTime());
+			} catch (IllegalArgumentException e) { }
 			
-			ObjectMapper mapper = new ObjectMapper(); //ObjectMapper é uma classe da biblioteca Jackson
-	        return mapper.writeValueAsString(discussion.getMessages());
+//			System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< " + messages);
 		}
 		
-		return "";
+		ObjectMapper mapper = new ObjectMapper(); 
+	    return mapper.writeValueAsString(messages);
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public ModelAndView update(String author, String subject, String text) {
+	@RequestMapping(value="/{subject}", method=RequestMethod.PUT)
+	public @ResponseBody String updateDiscussionMessages(String author, String subject, String text) {
 		
-		if (author != null && !author.isEmpty() && text != null && !text.isEmpty()){
-			Message message = new Message();
-			message.setAuthor(author);
-			message.setSubject(subject);
-			message.setText(text);
-			message.setDate(Calendar.getInstance().getTime());
-			talkAboutService.updateDiscussion(message);
-		}
-		return searchDiscussion(subject);
+		System.out.println("||||||||||||||||||||||||||||||||||||||||" + talkAboutService.getDiscussionBySubject(subject));
+		
+		Message message = new Message();
+		message.setAuthor(author);
+		message.setSubject(subject);
+		message.setText(text);
+		message.setDate(Calendar.getInstance().getTime());
+		talkAboutService.updateDiscussion(message);
+		
+		return "";
 	}
 }

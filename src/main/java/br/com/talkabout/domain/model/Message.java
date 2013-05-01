@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +26,8 @@ public class Message implements Model {
 	@Column(name = "text", nullable = false)
 	private String text;
 
-	@Column(name = "subject", nullable = false)
+	@Column(name = "subject", nullable = false, unique=false)
+	@JoinColumn(name="subject", referencedColumnName="subject", table="discussion")
 	private String subject;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -103,4 +105,11 @@ public class Message implements Model {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", author=" + author + ", text=" + text
+				+ ", subject=" + subject + ", date=" + date + "]";
+	}
+	
 }
