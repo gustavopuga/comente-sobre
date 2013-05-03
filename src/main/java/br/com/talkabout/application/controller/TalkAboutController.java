@@ -1,7 +1,6 @@
 package br.com.talkabout.application.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,21 +36,21 @@ public class TalkAboutController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/{subject}", method=RequestMethod.POST)
-	public ModelAndView searchDiscussion(@PathVariable("subject")String subject) {
-
+	@RequestMapping(value="/{prettySubject}", method=RequestMethod.POST)
+	public ModelAndView searchDiscussion(@PathVariable("prettySubject")String urlSubject, String subject) {
+		
 		ModelAndView response = new ModelAndView();
-		if (subject != null && !subject.trim().isEmpty()) {
+		if (urlSubject != null && !urlSubject.trim().isEmpty()) {
 			
 			Discussion discussion;
 			Date lastMessageDate;
 			
 			try {	
 				
-				discussion = talkAboutService.getDiscussionBySubject(subject);
+				discussion = talkAboutService.getDiscussionBySubject(urlSubject);
 				
 				if (discussion == null) {
-					discussion = talkAboutService.createNewSubjectDiscussion(subject);
+					discussion = talkAboutService.createNewSubjectDiscussion(urlSubject);
 				}
 				
 				List<Message> messages = discussion.getMessages();
@@ -64,11 +63,12 @@ public class TalkAboutController {
 				}
 				
 			} catch (IllegalArgumentException e) {
-				discussion = talkAboutService.createNewSubjectDiscussion(subject);
+				discussion = talkAboutService.createNewSubjectDiscussion(urlSubject);
 				lastMessageDate = discussion.getStartDate();
 			}
 			
 			response.addObject(discussion);
+			response.addObject("formatSubject", subject);
 			response.addObject("date", lastMessageDate.getTime());
 			response.setViewName("discussion");
 			
@@ -85,9 +85,6 @@ public class TalkAboutController {
 		List<Message> messages;
 		messages = new ArrayList<Message>();
 		
-//		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + subject);
-//		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + stringDate);
-		
 		if(stringDate != null && !stringDate.trim().isEmpty()){
 			
 			Calendar calendar = Calendar.getInstance();
@@ -96,7 +93,6 @@ public class TalkAboutController {
 				messages = talkAboutService.getMessagesBySubjectAndDate(subject, calendar.getTime());
 			} catch (IllegalArgumentException e) { }
 			
-//			System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< " + messages);
 		}
 		
 		ObjectMapper mapper = new ObjectMapper(); 
@@ -104,13 +100,12 @@ public class TalkAboutController {
 	}
 	
 	@RequestMapping(value="/{subject}", method=RequestMethod.PUT)
-	public @ResponseBody String updateDiscussionMessages(String author, String subject, String text) {
-		
-		System.out.println("||||||||||||||||||||||||||||||||||||||||" + talkAboutService.getDiscussionBySubject(subject));
+	public @ResponseBody String updateDiscussionMessages(String author, String email, @PathVariable("subject")String subject, String text) {
 		
 		Message message = new Message();
 		message.setAuthor(author);
 		message.setSubject(subject);
+		message.setEmail(email);
 		message.setText(text);
 		message.setDate(Calendar.getInstance().getTime());
 		talkAboutService.updateDiscussion(message);

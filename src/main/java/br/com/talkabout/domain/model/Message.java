@@ -23,6 +23,9 @@ public class Message implements Model {
 	@Column(name = "author", nullable = false)
 	private String author;
 
+	@Column(name = "email", nullable = false)
+	private String email;
+	
 	@Column(name = "text", nullable = false)
 	private String text;
 
@@ -48,6 +51,14 @@ public class Message implements Model {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getText() {

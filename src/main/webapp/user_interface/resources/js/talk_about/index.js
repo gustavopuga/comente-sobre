@@ -13,10 +13,35 @@ function createArrayOfSuggestions(m) {
 
 }
 
+function prettyUrl() {
+    var url = $("#subject").val().toLowerCase();
+    
+    var a_chars = new Array(
+    	    new Array("a",/[áàâãªÁÀÂÃ]/g),
+    	    new Array("e",/[éèêÉÈÊ]/g),
+    	    new Array("i",/[íìîÍÌÎ]/g),
+    	    new Array("o",/[òóôõºÓÒÔÕ]/g),
+    	    new Array("u",/[úùûÚÙÛ]/g),
+    	    new Array("c",/[çÇ]/g),
+    	    new Array("n",/[Ññ]/g)
+    	  );
+    
+    for(var i=0;i<a_chars.length;i++)
+    	url = url.replace(a_chars[i][1],a_chars[i][0]);
+    
+    url = url.replace(/^\s+|\s+$/g, "");
+    url = url.replace(/\s+/g, "-");
+    
+    return url;
+}
+
 function submitForm() {
-	var submitUrl = $("#subject").val();
+	
+	var submitUrl = prettyUrl();
+	
 	$("#form").attr("action", submitUrl);
 	$("#form").submit();
+	
 	return true;
 }
 

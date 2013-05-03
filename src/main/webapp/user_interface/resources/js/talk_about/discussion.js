@@ -1,19 +1,38 @@
+function validateEmail(email) {
+	
+	//RFC 2822 REGEX
+    var regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    return regex.test(email);
+}
+
 function submitForm() {
 	
 	var textMessage = $("#textareaPostMessage").val();
 	var subject = $("#subject").val();
 	var author = $("#author").val();
-	alert("" +subject);
+	var email = $("#email").val();
+	
 	if (textMessage == null || textMessage.replace(/\s/g,"") == ""){
 		alert("Para comentar é necessário escrever um comentário primeiro.");
-		return false;
+		return;
 	}
 	
 	if (author == null || author.replace(/\s/g,"") == ""){
 		author = "Desconhecido";
 	}
 	
-	var data = { author: author,
+	if (email == null || email.replace(/\s/g,"") == ""){
+		alert("É necessário preencher o campo email.");
+		return;
+	} else {
+		if (!validateEmail(email)) {
+			alert("O email contém erros.");
+			return;
+		}
+	}
+	
+	var data = { email: email,
+			     author: author,
 			     subject: subject, 
 			     text: textMessage };
 	

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
@@ -37,10 +36,6 @@ public class MessageDAO extends AbstractDAO<Message> implements MessageRepositor
 	@SuppressWarnings("unchecked")
 	public List<Message> getBySubjectAndDate(String subject, Date date) {
 		
-//		Query query = getSession().createQuery("FROM Message as m WHERE m.subject = :subject AND m.date > :date");
-//		query.setProperties(subject);
-//		query.setProperties(date);
-//		return query.list();
 		Criteria criteria = getSession().createCriteria(getModelClass());
 		criteria.add(Restrictions.ilike("subject", subject));
 		criteria.add(Restrictions.gt("date", date));

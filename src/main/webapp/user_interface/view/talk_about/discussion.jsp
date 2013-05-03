@@ -7,10 +7,10 @@
 <div class='content'>
 	
 	<input type="hidden" id="date" name="date" value="${date}">
-	<input type="hidden" id="url" name="url" value="${discussion.subject}">
+	<input type="hidden" id="subject" name="subject" value="${discussion.subject}">
 	
 	<div>
-		<h2>cd Assunto: ${discussion.subject}</h2>
+		<h2>Assunto: ${formatSubject}</h2>
 	</div>
 	
 	<div id='discussionPostArea' class='discussion-post-area'>
@@ -25,7 +25,6 @@
 	</div>
 		
 	<form id="form" method="PUT">
-		<input type="hidden" id="subject" name="subject" value="${discussion.subject}">
 		
 		<div class='discussion-post-message'>
 			<h4>Deixe seu coment&aacute;rio aqui...</h4>
@@ -35,6 +34,10 @@
 			
 			<div class="discussion-post-message-input-area">
 				Autor: <input type='text' id='author' name='author'/>
+			</div>
+			
+			<div class="discussion-post-message-input-area">
+				*E-mail: <input type='text' id='email' name='email'/>
 			</div>
 			
 			<div class="discussion-post-message-input-area">

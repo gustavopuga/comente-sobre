@@ -26,10 +26,11 @@ footer {
 footer div{
 	color: #FFF;
 	font-weight: normal;
+	font-size: 12px;
 	letter-spacing: 4px;
 	word-spacing: 15px;
 	text-align: center;
-	padding-top: 0.5em;
+	padding-top: 0.8em;
 	padding-bottom: 0.5em;
 }
 
