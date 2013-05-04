@@ -1,5 +1,7 @@
 package br.com.talkabout.domain.model;
 
+import static javax.persistence.FetchType.EAGER;
+
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class Discussion implements Model {
 	@Column(name = "subject")
 	private String subject;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="subject")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "subject", fetch = EAGER, orphanRemoval = true)
 	private List<Message> messages;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -61,6 +63,4 @@ public class Discussion implements Model {
 				+ ", startDate=" + startDate + "]";
 	}
 
-	
-	
 }

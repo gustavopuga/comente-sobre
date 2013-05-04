@@ -47,7 +47,7 @@ public class TalkAboutController {
 			
 			try {	
 				
-				discussion = talkAboutService.getDiscussionBySubject(urlSubject);
+				discussion = talkAboutService.getDiscussion(urlSubject);
 				
 				if (discussion == null) {
 					discussion = talkAboutService.createNewSubjectDiscussion(urlSubject);
@@ -56,7 +56,7 @@ public class TalkAboutController {
 				List<Message> messages = discussion.getMessages();
 				int messageNumber = messages.size();
 				
-				if (messageNumber == 0){
+				if (messageNumber == 0) {
 					lastMessageDate = discussion.getStartDate();
 				} else {
 					lastMessageDate = messages.get(messages.size() - 1).getDate();
@@ -82,8 +82,7 @@ public class TalkAboutController {
 	@RequestMapping(value="/{subject}/{date}", method=RequestMethod.GET)
 	public @ResponseBody String listNewDiscussion(@PathVariable("subject")String subject, @PathVariable("date")String stringDate) throws JsonGenerationException, JsonMappingException, IOException {
 
-		List<Message> messages;
-		messages = new ArrayList<Message>();
+		List<Message> messages = new ArrayList<Message>();
 		
 		if(stringDate != null && !stringDate.trim().isEmpty()){
 			
@@ -91,8 +90,9 @@ public class TalkAboutController {
 			calendar.setTimeInMillis(Long.valueOf(stringDate));
 			try {	
 				messages = talkAboutService.getMessagesBySubjectAndDate(subject, calendar.getTime());
-			} catch (IllegalArgumentException e) { }
-			
+			} catch (IllegalArgumentException e) { 
+				
+			}
 		}
 		
 		ObjectMapper mapper = new ObjectMapper(); 
@@ -108,6 +108,7 @@ public class TalkAboutController {
 		message.setEmail(email);
 		message.setText(text);
 		message.setDate(Calendar.getInstance().getTime());
+		
 		talkAboutService.updateDiscussion(message);
 		
 		return "";

@@ -27,9 +27,16 @@ public class TalkAboutService {
 		this.messageRepository = messageRepository;
 	}
 
-	public Discussion getDiscussionBySubject(String subject)
+	public Discussion getDiscussion(String subject)
 			throws IllegalArgumentException {
-		return discussionRepository.get(subject);
+
+		Discussion discussion = discussionRepository.get(subject);
+		if (discussion != null && discussion.getMessages().isEmpty()) {
+			List<Message> messages = messageRepository.getBySubject(subject);
+			discussion.setMessages(messages);
+		}
+
+		return discussion;
 	}
 
 	public List<Message> getMessagesBySubjectAndDate(String subject, Date date)

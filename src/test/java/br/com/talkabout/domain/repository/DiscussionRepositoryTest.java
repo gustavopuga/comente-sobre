@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.hibernate.id.IdentifierGenerationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -57,7 +56,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		repository.delete(discussion);
 	}
 
-	@Test(expected = IdentifierGenerationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSaveDiscussionWhenSubjectIsNull() {
 
 		Discussion discussion = new Discussion();
@@ -67,7 +66,7 @@ public class DiscussionRepositoryTest extends AbstractJUnit4SpringContextTests {
 		repository.saveOrUpdate(discussion);
 	}
 
-	@Test(expected = DataIntegrityViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSaveDiscussionWhenStartDateIsNull() {
 
 		Discussion discussion = new Discussion();

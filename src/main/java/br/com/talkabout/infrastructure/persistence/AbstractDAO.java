@@ -1,8 +1,12 @@
 package br.com.talkabout.infrastructure.persistence;
 
+import java.io.Serializable;
+
+import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.id.IdentifierGenerationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +21,8 @@ public abstract class AbstractDAO<T extends Model> {
 	public void saveOrUpdate(T object) {
 		try {
 			getSession().saveOrUpdate(object);
-		} catch (ConstraintViolationException exception) {
+		} catch (ConstraintViolationException | PropertyValueException
+				| IdentifierGenerationException exception) {
 			throw new IllegalArgumentException(exception);
 		}
 	}
@@ -25,6 +30,15 @@ public abstract class AbstractDAO<T extends Model> {
 	@Transactional
 	public void delete(T object) {
 		getSession().delete(object);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected T get(Serializable id) {
+		try {
+			return (T) getSession().get(getModelClass(), id);
+		} catch (ConstraintViolationException | PropertyValueException exception) {
+			throw new IllegalArgumentException(exception);
+		}
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

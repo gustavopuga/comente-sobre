@@ -25,12 +25,12 @@ public class TalkAboutServiceTest extends
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenEmptySubject() {
-		service.getDiscussionBySubject("");
+		service.getDiscussion("");
 	}
 
 	@Test
 	public void testGetNullDiscussionWhenThereIsNoSubject() {
-		assertNull(service.getDiscussionBySubject("subject"));
+		assertNull(service.getDiscussion("subject"));
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class TalkAboutServiceTest extends
 	@Rollback(value = true)
 	public void testCreateNewDiscussion() {
 		service.createNewSubjectDiscussion("subject");
-		assertNotNull(service.getDiscussionBySubject("subject"));
+		assertNotNull(service.getDiscussion("subject"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -81,6 +81,6 @@ public class TalkAboutServiceTest extends
 		
 		service.updateDiscussion(message);
 		
-		assertTrue(service.getDiscussionBySubject(subject).getMessages().get(0).equals(message));
+		assertTrue(service.getDiscussion(subject).getMessages().get(0).equals(message));
 	}
 }

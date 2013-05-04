@@ -11,7 +11,7 @@ public interface MessageRepository {
 
 	public void delete(Message message);
 
-	public Message get(long messageId);
+	public Message get(Long messageId);
 	
 	public List<Message> getBySubject(String subject);
 	
