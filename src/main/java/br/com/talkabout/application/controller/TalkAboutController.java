@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.talkabout.domain.model.Author;
 import br.com.talkabout.domain.model.Discussion;
 import br.com.talkabout.domain.model.Message;
 import br.com.talkabout.domain.service.TalkAboutService;
@@ -71,7 +72,7 @@ public class TalkAboutController {
 			response.addObject("formatSubject", subject);
 			response.addObject("date", lastMessageDate.getTime());
 			response.setViewName("discussion");
-			
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>> " + discussion);
 		} else {
 			response.setViewName("index");
 		}
@@ -100,12 +101,15 @@ public class TalkAboutController {
 	}
 	
 	@RequestMapping(value="/{subject}", method=RequestMethod.PUT)
-	public @ResponseBody String updateDiscussionMessages(String author, String email, @PathVariable("subject")String subject, String text) {
+	public @ResponseBody String updateDiscussionMessages(String name, String email, @PathVariable("subject")String subject, String text) {
+		
+		Author author = new Author();
+		author.setName(name);
+		author.setEmail(email);
 		
 		Message message = new Message();
 		message.setAuthor(author);
 		message.setSubject(subject);
-		message.setEmail(email);
 		message.setText(text);
 		message.setDate(Calendar.getInstance().getTime());
 		

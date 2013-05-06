@@ -15,5 +15,5 @@ public interface MessageRepository {
 	
 	public List<Message> getBySubject(String subject);
 	
-	public List<Message> getBySubjectAndDate(String subject, Date startSearchDate);
+	public List<Message> getBySubjectAndStartDate(String subject, Date startSearchDate);
 }

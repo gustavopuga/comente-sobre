@@ -5,12 +5,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.talkabout.domain.model.Discussion;
 import br.com.talkabout.domain.model.Message;
+import br.com.talkabout.domain.repository.AuthorRepository;
 import br.com.talkabout.domain.repository.DiscussionRepository;
 import br.com.talkabout.domain.repository.MessageRepository;
 
@@ -19,10 +19,13 @@ public class TalkAboutService {
 
 	private DiscussionRepository discussionRepository;
 	private MessageRepository messageRepository;
+	private AuthorRepository authorRepository;
 
 	@Autowired
-	public TalkAboutService(DiscussionRepository discussionRepository,
+	public TalkAboutService(AuthorRepository authorRepository,
+			DiscussionRepository discussionRepository,
 			MessageRepository messageRepository) {
+		this.authorRepository = authorRepository;
 		this.discussionRepository = discussionRepository;
 		this.messageRepository = messageRepository;
 	}
@@ -41,7 +44,7 @@ public class TalkAboutService {
 
 	public List<Message> getMessagesBySubjectAndDate(String subject, Date date)
 			throws IllegalArgumentException {
-		return messageRepository.getBySubjectAndDate(subject, date);
+		return messageRepository.getBySubjectAndStartDate(subject, date);
 	}
 
 	public Discussion createNewSubjectDiscussion(String subject) {
@@ -58,11 +61,8 @@ public class TalkAboutService {
 
 	public void updateDiscussion(Message message) {
 
-		try {
-			messageRepository.saveOrUpdate(message);
-		} catch (ConstraintViolationException exception) {
-			throw new IllegalArgumentException(exception);
-		}
+		authorRepository.saveOrUpdate(message.getAuthor());
+		messageRepository.saveOrUpdate(message);
 	}
 
 }

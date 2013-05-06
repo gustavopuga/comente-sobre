@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,11 +20,8 @@ public class Message implements Model {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "author", nullable = false)
-	private String author;
-
-	@Column(name = "email")
-	private String email;
+	@ManyToOne
+	private Author author;
 	
 	@Column(name = "text", nullable = false)
 	private String text;
@@ -35,28 +33,20 @@ public class Message implements Model {
 	@Column(name = "date", nullable = false)
 	private Date date;
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(Author author) {
 		this.author = author;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getText() {
@@ -92,10 +82,10 @@ public class Message implements Model {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
-		if (author == null) {
-			if (other.author != null)
+		if (getAuthor() == null) {
+			if (other.getAuthor() != null)
 				return false;
-		} else if (!author.equals(other.author))
+		} else if (!getAuthor().equals(other.getAuthor()))
 			return false;
 		if (date == null) {
 			if (other.date != null)
@@ -117,7 +107,7 @@ public class Message implements Model {
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", author=" + author + ", text=" + text
+		return "Message [id=" + getId() + ", author=" + getAuthor() + ", text=" + text
 				+ ", subject=" + subject + ", date=" + date + "]";
 	}
 	

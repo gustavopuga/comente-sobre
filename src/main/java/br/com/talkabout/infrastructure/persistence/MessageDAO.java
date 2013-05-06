@@ -29,7 +29,7 @@ public class MessageDAO extends AbstractDAO<Message> implements MessageRepositor
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Message> getBySubjectAndDate(String subject, Date date) {
+	public List<Message> getBySubjectAndStartDate(String subject, Date date) {
 		
 		Criteria criteria = getSession().createCriteria(getModelClass());
 		criteria.add(Restrictions.ilike("subject", subject));

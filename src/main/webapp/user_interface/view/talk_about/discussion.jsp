@@ -19,7 +19,7 @@
 			<p class='discussion-text-message'>
 				${message.text} <br>
 			</p>
-			<p class='discussion-about-text-message'>${message.author} - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
+			<p class='discussion-about-text-message'>[ ${message.author.name} (${message.author.email}) ] - <fmt:formatDate value="${message.date}" pattern="dd/MM/yyyy HH:mm" /></p>
 		</div>
 		</c:forEach>
 	</div>

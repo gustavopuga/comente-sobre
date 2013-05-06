@@ -32,7 +32,7 @@ function submitForm() {
 	}
 	
 	var data = { email: email,
-			     author: author,
+			     name: author,
 			     subject: subject, 
 			     text: textMessage };
 	
@@ -88,7 +88,7 @@ function getNewDiscussionMessages () {
 				
 				var pMessageAbout = document.createElement('p');
 				pMessageAbout.className = 'discussion-about-text-message';
-				pMessageAbout.innerHTML = message.author + " - " + formatDate(date);
+				pMessageAbout.innerHTML = "[ " + message.author.name + " (" + message.author.email + ") ] - " + formatDate(date);
 				
 				var pMessage = document.createElement('p');
 				pMessage.className = 'discussion-text-message';

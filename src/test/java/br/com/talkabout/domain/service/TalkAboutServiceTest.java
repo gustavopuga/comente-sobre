@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -13,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.talkabout.domain.model.Author;
 import br.com.talkabout.domain.model.Message;
 
 @ContextConfiguration(locations = { "classpath:spring/dataContext.xml",
@@ -22,7 +24,15 @@ public class TalkAboutServiceTest extends
 
 	@Autowired
 	private TalkAboutService service;
+	private Author author;
 
+	@Before
+	public void generateAuthor() {
+		author = new Author();
+		author.setName("author");
+		author.setEmail("mail@mail.com");
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testThrowsExceptionWhenEmptySubject() {
 		service.getDiscussion("");
@@ -46,7 +56,7 @@ public class TalkAboutServiceTest extends
 		
 		Message message = new Message();
 		message.setText("");
-		message.setAuthor("author");
+		message.setAuthor(author);
 		message.setDate(Calendar.getInstance().getTime());
 		
 		service.updateDiscussion(message);	
@@ -57,7 +67,7 @@ public class TalkAboutServiceTest extends
 		
 		Message message = new Message();
 		message.setText("");
-		message.setAuthor("author");
+		message.setAuthor(author);
 		message.setSubject("subject");
 		message.setDate(Calendar.getInstance().getTime());
 		
@@ -75,7 +85,7 @@ public class TalkAboutServiceTest extends
 		
 		Message message = new Message();
 		message.setText("");
-		message.setAuthor("author");
+		message.setAuthor(author);
 		message.setSubject(subject);
 		message.setDate(Calendar.getInstance().getTime());
 		
